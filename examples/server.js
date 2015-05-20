@@ -1,5 +1,5 @@
-var ElasticMapper = require( "../lib/elastic_mapper" ),
-    server = ElasticMapper.server( { environment: "test", debug: true }),
+var server = require( "../lib/elastic_mapper" ).
+      server( { environment: "test", debug: true }),
     port = Number( process.env.PORT || 4000 );
 
 server.listen( port, function( ) {
