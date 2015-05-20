@@ -9,6 +9,7 @@ var expect = require( "chai" ).expect,
 
 describe( "ElasticMapper", function( ) {
   before( function( done ) {
+    this.timeout( 10000 );
     app = Mapper.server( helpers.testConfig( ) );
     helpers.rebuildTestIndex( done );
   });

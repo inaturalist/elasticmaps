@@ -20,5 +20,5 @@ before_install:
   - sudo apt-get update -qq
 
 before_script:
-  - sleep 10
+  - sleep 15
 
