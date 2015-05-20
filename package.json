@@ -1,7 +1,7 @@
 {
   "name": "elasticmaps",
   "version": "0.1.0",
-  "description": "elasticmaps",
+  "description": "Map tileserver based on node-mapnik and elasticsearch",
   "main": "index.js",
   "scripts": {
     "test": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec --recursive"
