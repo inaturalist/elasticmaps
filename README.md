@@ -16,11 +16,10 @@ Usage
 ```js
 // This is the most basic example. It assumes elasticsearch
 // is running on localhost:9200, and that there is an index
-// named elasticmaps_production which has documents with minimally
+// named elasticmaps_development which has documents with minimally
 // an integer `id` and geo_point `location` field
 
-var server = require( "elasticmaps" ).
-      server( { environment: "production", debug: true }),
+var server = require( "elasticmaps" ).server( ),
     port = Number( process.env.PORT || 4000 );
 
 server.listen( port, function( ) {
@@ -57,7 +56,7 @@ var config =  {
   }
 };
 
-var server = server( config );
+var server = Elasticmaps.server( config );
 server.listen( port, function( ) {
   console.log( "Listening on " + port );
 });
