@@ -6,4 +6,4 @@ module.exports = {
   },
   tileSize: 256,
   debug: true
-}
+};

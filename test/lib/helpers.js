@@ -25,7 +25,11 @@ helpers.createTestIndex = function( callback ) {
     map_point: {
       properties: {
         id: { type: "integer" },
-        name: { type: "string" },
+        user: {
+          properties: {
+            name: { type: "string" },
+          }
+        },
         location: { type: "geo_point", lat_lon: true,
           geohash: true, geohash_precision: 10 },
         geojson: { type: "geo_shape" }

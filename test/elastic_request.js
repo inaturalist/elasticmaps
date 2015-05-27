@@ -3,6 +3,40 @@ var expect = require( "chai" ).expect,
 
 describe( "ElasticRequest", function( ) {
 
+  describe( "search", function( ) {
+    it( "returns an error with a malformed query", function( done ) {
+      ElasticRequest.search({ made: "up" }, function( err, rsp ) {
+        expect( err.message ).to.eql(
+          "IndexMissingException[[elasticmaps_development] missing]" );
+        done( );
+      });
+    });
+  });
+
+  describe( "boundingBoxFilter", function( ) {
+    it( "enlarges the boundary for better tile edges", function( ) {
+      expect( ElasticRequest.boundingBoxFilter(
+        [ 0, 0, 1, 1 ], true ) ).to.eql( { geo_bounding_box: { location: {
+          bottom_left: [ -0.1, -0.1 ], top_right: [ 1.1, 1.1 ] }}});
+    });
+
+    it( "can skip smoothing", function( ) {
+      expect( ElasticRequest.boundingBoxFilter(
+        [ 0, 0, 1, 1 ], false ) ).to.eql( { geo_bounding_box: { location: {
+          bottom_left: [ 0, 0 ], top_right: [ 1, 1 ] }}});
+    });
+
+    it( "creates a conditional query for dateline wrapping bboxes", function( ) {
+      expect( ElasticRequest.boundingBoxFilter(
+        [ 179, 1, -179, 2 ], false ) ).to.eql( { or: [
+          { geo_bounding_box: { location: {
+            bottom_left: [ 179, 1 ], top_right: [ 180, 2 ] }}},
+          { geo_bounding_box: { location: {
+            bottom_left: [ -180, 1 ], top_right: [ -179, 2 ] }}}
+          ]});
+    });
+  });
+
   describe( "geohashPrecision", function( ) {
     it( "returns the proper percision for a zoom", function( ) {
       expect( ElasticRequest.geohashPrecision( 1 ) ).to.eql( 3 );
