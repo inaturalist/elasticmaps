@@ -59,8 +59,8 @@ describe( "ElasticMapper", function( ) {
         .expect( "unknown style: nonsense", done );
     });
 
-    it( "zoom must be 1 or above", function( done ) {
-      request( app ).get( "/points/0/0/0.png" ).expect( 404 )
+    it( "zoom must be 0 or above", function( done ) {
+      request( app ).get( "/points/-1/0/0.png" ).expect( 404 )
         .expect( "Invalid zoom", done );
     });
 
@@ -144,7 +144,7 @@ describe( "ElasticMapper", function( ) {
       app = Mapper.server( _.extend( helpers.testConfig( ), {
         prepareStyle: function( req, callback ) {
           req.style = "nonsense";
-          callback( );
+          callback( req );
         }
       }));
       request( app ).get( "/points/1/0/0.png" ).expect( 500 )

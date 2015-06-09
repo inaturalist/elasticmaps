@@ -58,8 +58,8 @@ describe( "ElasticRequest", function( ) {
         elastic_query: { fields: ElasticRequest.defaultMapFields( ) } } ) ).
         to.eql({ zoom1: { geohash_grid: { field: "location",
           size: 50000, precision: 10 }, aggs: { geohash: { top_hits: {
-          sort: { id: { order: "desc" } }, _source: {
-          include: ElasticRequest.defaultMapFields( ) }, size: 1 } } } } } );
+          sort: { id: { order: "desc" } }, _source: false, fielddata_fields:
+          ElasticRequest.defaultMapFields( ), size: 1 } } } } } );
     });
   });
 
