@@ -1,4 +1,5 @@
 var expect = require( "chai" ).expect,
+    _ = require( "underscore" ),
     ElasticRequest = require( "../lib/elastic_request" );
 
 describe( "ElasticRequest", function( ) {
@@ -34,6 +35,37 @@ describe( "ElasticRequest", function( ) {
           { geo_bounding_box: { location: {
             bottom_left: [ -180, 1 ], top_right: [ -179, 2 ] }}}
           ]});
+    });
+  });
+
+  describe( "applyBoundingBoxFilter", function( ) {
+    it( "can add to a prefiltered query", function( ) {
+      var req = { params: { x: 1, y: 1, zoom: 1 },
+        elastic_query: { query: {
+          filtered: { query: "*", filter: [ ] } } } };
+      expect( req.elastic_query.query.filtered.filter.length ).to.eql( 0 );
+      ElasticRequest.applyBoundingBoxFilter( req );
+      expect( req.elastic_query.query.filtered.filter.length ).to.eql( 1 );
+    });
+
+    it( "can add to a prefiltered bool", function( ) {
+      var req = { params: { x: 1, y: 1, zoom: 1 },
+        elastic_query: { query: {
+          filtered: { query: "*", filter: {
+            bool: { must: [ ] }
+          } } } } };
+      expect( req.elastic_query.query.filtered.filter.bool.must.length ).to.eql( 0 );
+      ElasticRequest.applyBoundingBoxFilter( req );
+      expect( req.elastic_query.query.filtered.filter.bool.must.length ).to.eql( 1 );
+    });
+
+    it( "can add to a prefiltered bool", function( ) {
+      var req = { params: { x: 1, y: 1, zoom: 1 },
+        elastic_query: { query: {
+          filtered: { filter: { something: "different" } } } } };
+      expect( _.size( req.elastic_query.query.filtered ) ).to.eql( 1 );
+      ElasticRequest.applyBoundingBoxFilter( req );
+      expect( _.size( req.elastic_query.query.filtered ) ).to.eql( 1 );
     });
   });
 
