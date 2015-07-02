@@ -13,4 +13,14 @@ describe( "MapGenerator", function( ) {
     });
   });
 
+  describe( "basicEscape", function( ) {
+    it( "removes single quotes", function( ) {
+      expect( MapGenerator.basicEscape( "How's things") ).to.eq( "\"Hows things\"" );
+    });
+
+    it( "turn double quotes to single", function( ) {
+      expect( MapGenerator.basicEscape( "a \"quoted\" value") ).to.eq( "\"a 'quoted' value\"" );
+    });
+  });
+
 });

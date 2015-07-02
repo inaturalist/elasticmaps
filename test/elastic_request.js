@@ -93,6 +93,14 @@ describe( "ElasticRequest", function( ) {
           sort: { id: { order: "desc" } }, _source: false, fielddata_fields:
           ElasticRequest.defaultMapFields( ), size: 1 } } } } } );
     });
+
+    it( "returns the source if requested", function( ) {
+      var agg = ElasticRequest.geohashAggregation({
+        query: { source: "true" },
+        params: { zoom: 15 },
+        elastic_query: { fields: ElasticRequest.defaultMapFields( ) } } );
+      expect( agg.zoom1.aggs.geohash.top_hits._source ).to.be.true;
+    });
   });
 
 });
