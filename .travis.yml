@@ -3,7 +3,6 @@ language: node_js
 compiler: gcc
 
 node_js:
-  - "0.12"
   - "0.10"
 
 services:
@@ -20,4 +19,8 @@ before_install:
 
 before_script:
   - sleep 15
+
+notifications:
+  slack:
+    secure: 26lzL3x3oLtMBNIbELwh2Sew9jQzqbDED8tswAFFqzY9+UhJZcWRw3m7c9//C417ngZkW0w7ylY0cnmRWhdaEGpBSioBz2re+nj6y6pXBNfXkUS0keY9pMZHpk74ZHGc3eYkftV7Yk4sQV2kgk4PM+FdN07BS+JzG1LiSH8GmbDHJMvEjDAAYO3bFUsVwp3K09HbiLdnCWmMGRXfZ6iHjM3mXaJ0MtAe1Jwy5/reb5yG5xwv9RwHN2Ey9WPBe2JTYiXZ23dvwrinzqr1sVj2T9N2JIAF2FlB7irw5LuWxWy8sAi0HTMnjH1SBN6XpNfVZ2Mt1GvmjAg2hSrDFnlS/8LoVjIPrvM1DXMghBbQNnT3AhTyQD7u+KdZOelQ/9NVs/+tDZXnaLwXPb2tI63zRa/0eJ31KiuxWaJvgykWUuzwnWXvNMe3i26ILCxoqUF/HLiYkOWJ2nmimQLARR0w/NIFL9nSXTyCEYdUpZkagWj4/JyaGDW2bHaQ4xmkAOypJxsU6dwokfpJs1+PvYo9qY1je/iGVfKbJf6c7OcEn5fILd8Umdk0sR0cl4bjZIOwVGylSGqY5mhQ1WUQTXTUPw3Xg9HYY8reF7OBjuIlAD8et2w+MaiwFpeOT22sFM9Xq6Vz/u2uN/cMZFvL5LYXj5JPJgmCu+XZNEBzy0ZL7bo=
 
