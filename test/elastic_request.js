@@ -8,7 +8,7 @@ describe( "ElasticRequest", function( ) {
     it( "returns an error with a malformed query", function( done ) {
       ElasticRequest.search({ made: "up" }, function( err, rsp ) {
         expect( err.message ).to.eql(
-          "IndexMissingException[[elasticmaps_development] missing]" );
+          "[index_not_found_exception] no such index" );
         done( );
       });
     });
@@ -18,22 +18,27 @@ describe( "ElasticRequest", function( ) {
     it( "enlarges the boundary for better tile edges", function( ) {
       expect( ElasticRequest.boundingBoxFilter(
         [ 0, 0, 1, 1 ], true ) ).to.eql( { geo_bounding_box: { location: {
-          bottom_left: [ -0.1, -0.1 ], top_right: [ 1.1, 1.1 ] }}});
+          bottom_left: [ -0.07, -0.07 ], top_right: [ 1.07, 1.07 ] },
+          type: "indexed"
+      }});
     });
 
     it( "can skip smoothing", function( ) {
       expect( ElasticRequest.boundingBoxFilter(
         [ 0, 0, 1, 1 ], false ) ).to.eql( { geo_bounding_box: { location: {
-          bottom_left: [ 0, 0 ], top_right: [ 1, 1 ] }}});
+          bottom_left: [ 0, 0 ], top_right: [ 1, 1 ] },
+          type: "indexed"}});
     });
 
     it( "creates a conditional query for dateline wrapping bboxes", function( ) {
       expect( ElasticRequest.boundingBoxFilter(
         [ 179, 1, -179, 2 ], false ) ).to.eql( { or: [
           { geo_bounding_box: { location: {
-            bottom_left: [ 179, 1 ], top_right: [ 180, 2 ] }}},
+            bottom_left: [ 179, 1 ], top_right: [ 180, 2 ] },
+          type: "indexed"}},
           { geo_bounding_box: { location: {
-            bottom_left: [ -180, 1 ], top_right: [ -179, 2 ] }}}
+            bottom_left: [ -180, 1 ], top_right: [ -179, 2 ] },
+          type: "indexed"}}
           ]});
     });
   });
@@ -96,7 +101,7 @@ describe( "ElasticRequest", function( ) {
 
     it( "returns the source if requested", function( ) {
       var agg = ElasticRequest.geohashAggregation({
-        query: { source: "true" },
+        query: { source: true },
         params: { zoom: 15 },
         elastic_query: { fields: ElasticRequest.defaultMapFields( ) } } );
       expect( agg.zoom1.aggs.geohash.top_hits._source ).to.be.true;
