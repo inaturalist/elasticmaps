@@ -19,7 +19,6 @@ before_install:
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.7 20
   - g++ --version
   - sudo apt-get update -qq
-  - curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-2.1.0.deb && sudo dpkg -i --force-confnew elasticsearch-2.1.0.deb
 
 before_script:
   - sleep 15
