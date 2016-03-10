@@ -19,10 +19,14 @@ Usage
 // named elasticmaps_development which has documents with minimally
 // an integer `id` and geo_point `location` field
 
-var server = require( "elasticmaps" ).server( ),
+var Elasticmaps = require( "elasticmaps" ),
     port = Number( process.env.PORT || 4000 );
 
-server.listen( port, function( ) {
+var app = Elasticmaps.server( );
+// create the tile route
+app.get( "/:style/:zoom/:x/:y.:format([a-z\.]+)", Elasticmaps.route );
+
+app.listen( port, function( ) {
   console.log( "Listening on " + port );
 });
 ```
