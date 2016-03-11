@@ -7,11 +7,7 @@ describe( "ElasticRequest", function( ) {
   describe( "search", function( ) {
     it( "returns an error with a malformed query", function( done ) {
       ElasticRequest.search({ made: "up" }, function( err, rsp ) {
-        // elasticsearch 1.x and 2.x have different errors
-        expect( _.contains([
-          "IndexMissingException[[elasticmaps_development] missing]",
-          "[index_not_found_exception] no such index" ],
-          err.message )).to.eql( true );
+        expect( err.message ).to.include( "index_not_found_exception" );
         done( );
       });
     });

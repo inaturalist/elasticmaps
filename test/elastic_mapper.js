@@ -7,10 +7,12 @@ var expect = require( "chai" ).expect,
     helpers = require( "./lib/helpers" ),
     app;
 
+
 describe( "ElasticMapper", function( ) {
   before( function( done ) {
     this.timeout( 10000 );
     app = Mapper.server( helpers.testConfig( ) );
+    app.get( "/:style/:zoom/:x/:y.:format([a-z\.]+)", Mapper.route );
     helpers.rebuildTestIndex( done );
   });
 
@@ -136,6 +138,7 @@ describe( "ElasticMapper", function( ) {
           callback( { message: "fail", status: 501 });
         }
       }));
+      app.get( "/:style/:zoom/:x/:y.:format([a-z\.]+)", Mapper.route );
       request( app ).get( "/points/1/0/0.png" ).expect( 501 )
         .expect( "fail", done );
     });
@@ -147,6 +150,7 @@ describe( "ElasticMapper", function( ) {
           callback( req );
         }
       }));
+      app.get( "/:style/:zoom/:x/:y.:format([a-z\.]+)", Mapper.route );
       request( app ).get( "/points/1/0/0.png" ).expect( 500 )
         .expect( "Error", done );
     });
@@ -159,6 +163,7 @@ describe( "ElasticMapper", function( ) {
           callback( true );
         }
       }));
+      app.get( "/:style/:zoom/:x/:y.:format([a-z\.]+)", Mapper.route );
       request( app ).get( "/points/1/0/0.png" ).expect( 500 )
         .expect( "Error", done );
     });
