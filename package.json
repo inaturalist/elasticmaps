@@ -1,6 +1,6 @@
 {
   "name": "elasticmaps",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Map tileserver based on node-mapnik and elasticsearch",
   "main": "index.js",
   "scripts": {
