@@ -30,8 +30,7 @@ helpers.createTestIndex = function( callback ) {
             name: { type: "string" },
           }
         },
-        location: { type: "geo_point", lat_lon: true,
-          geohash: true, geohash_precision: 10 },
+        location: { type: "geo_point" },
         geojson: { type: "geo_shape" }
       }
     }

@@ -46,30 +46,19 @@ describe( "ElasticRequest", function( ) {
     it( "can add to a prefiltered query", function( ) {
       var req = { params: { x: 1, y: 1, zoom: 1 },
         elastic_query: { query: {
-          filtered: { query: "*", filter: [ ] } } } };
-      expect( req.elastic_query.query.filtered.filter.length ).to.eql( 0 );
+          bool: { must: [ ] } } } };
+      expect( req.elastic_query.query.bool.must.length ).to.eql( 0 );
       ElasticRequest.applyBoundingBoxFilter( req );
-      expect( req.elastic_query.query.filtered.filter.length ).to.eql( 1 );
+      expect( req.elastic_query.query.bool.must.length ).to.eql( 1 );
     });
 
     it( "can add to a prefiltered bool", function( ) {
       var req = { params: { x: 1, y: 1, zoom: 1 },
         elastic_query: { query: {
-          filtered: { query: "*", filter: {
-            bool: { must: [ ] }
-          } } } } };
-      expect( req.elastic_query.query.filtered.filter.bool.must.length ).to.eql( 0 );
+          bool: { must: [ { something: "different" } ] } } } };
+      expect( _.size( req.elastic_query.query.bool.must ) ).to.eql( 1 );
       ElasticRequest.applyBoundingBoxFilter( req );
-      expect( req.elastic_query.query.filtered.filter.bool.must.length ).to.eql( 1 );
-    });
-
-    it( "can add to a prefiltered bool", function( ) {
-      var req = { params: { x: 1, y: 1, zoom: 1 },
-        elastic_query: { query: {
-          filtered: { filter: { something: "different" } } } } };
-      expect( _.size( req.elastic_query.query.filtered ) ).to.eql( 1 );
-      ElasticRequest.applyBoundingBoxFilter( req );
-      expect( _.size( req.elastic_query.query.filtered ) ).to.eql( 1 );
+      expect( _.size( req.elastic_query.query.bool.must ) ).to.eql( 2 );
     });
   });
 
