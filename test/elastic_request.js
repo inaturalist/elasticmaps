@@ -31,14 +31,14 @@ describe( "ElasticRequest", function( ) {
 
     it( "creates a conditional query for dateline wrapping bboxes", function( ) {
       expect( ElasticRequest.boundingBoxFilter(
-        [ 179, 1, -179, 2 ], false ) ).to.eql( { or: [
+        [ 179, 1, -179, 2 ], false ) ).to.eql( { bool: { should: [
           { geo_bounding_box: { location: {
             bottom_left: [ 179, 1 ], top_right: [ 180, 2 ] },
           type: "indexed"}},
           { geo_bounding_box: { location: {
             bottom_left: [ -180, 1 ], top_right: [ -179, 2 ] },
           type: "indexed"}}
-          ]});
+          ]}});
     });
   });
 
