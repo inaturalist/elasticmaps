@@ -35,7 +35,7 @@ describe( "ElasticMapper", function( ) {
     });
 
     it( "accepts parameters", function( done ) {
-      request( app ).get( "/points/1/0/0.png?param=test" ).expect( "test" ).expect( 200 )
+      request( app ).get( "/points/1/0/0.png?param=test" ).expect( 200 )
         .expect( "content-type", "image/png", done );
     });
   });
