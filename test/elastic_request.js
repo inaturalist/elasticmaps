@@ -31,14 +31,14 @@ describe( "ElasticRequest", function( ) {
 
     it( "creates a conditional query for dateline wrapping bboxes", function( ) {
       expect( ElasticRequest.boundingBoxFilter(
-        [ 179, 1, -179, 2 ], false ) ).to.eql( { or: [
+        [ 179, 1, -179, 2 ], false ) ).to.eql( { bool: { should: [
           { geo_bounding_box: { location: {
             bottom_left: [ 179, 1 ], top_right: [ 180, 2 ] },
           type: "indexed"}},
           { geo_bounding_box: { location: {
             bottom_left: [ -180, 1 ], top_right: [ -179, 2 ] },
           type: "indexed"}}
-          ]});
+          ]}});
     });
   });
 
@@ -46,30 +46,19 @@ describe( "ElasticRequest", function( ) {
     it( "can add to a prefiltered query", function( ) {
       var req = { params: { x: 1, y: 1, zoom: 1 },
         elastic_query: { query: {
-          filtered: { query: "*", filter: [ ] } } } };
-      expect( req.elastic_query.query.filtered.filter.length ).to.eql( 0 );
+          bool: { must: [ ] } } } };
+      expect( req.elastic_query.query.bool.must.length ).to.eql( 0 );
       ElasticRequest.applyBoundingBoxFilter( req );
-      expect( req.elastic_query.query.filtered.filter.length ).to.eql( 1 );
+      expect( req.elastic_query.query.bool.must.length ).to.eql( 1 );
     });
 
     it( "can add to a prefiltered bool", function( ) {
       var req = { params: { x: 1, y: 1, zoom: 1 },
         elastic_query: { query: {
-          filtered: { query: "*", filter: {
-            bool: { must: [ ] }
-          } } } } };
-      expect( req.elastic_query.query.filtered.filter.bool.must.length ).to.eql( 0 );
+          bool: { must: [ { something: "different" } ] } } } };
+      expect( _.size( req.elastic_query.query.bool.must ) ).to.eql( 1 );
       ElasticRequest.applyBoundingBoxFilter( req );
-      expect( req.elastic_query.query.filtered.filter.bool.must.length ).to.eql( 1 );
-    });
-
-    it( "can add to a prefiltered bool", function( ) {
-      var req = { params: { x: 1, y: 1, zoom: 1 },
-        elastic_query: { query: {
-          filtered: { filter: { something: "different" } } } } };
-      expect( _.size( req.elastic_query.query.filtered ) ).to.eql( 1 );
-      ElasticRequest.applyBoundingBoxFilter( req );
-      expect( _.size( req.elastic_query.query.filtered ) ).to.eql( 1 );
+      expect( _.size( req.elastic_query.query.bool.must ) ).to.eql( 2 );
     });
   });
 
@@ -94,8 +83,7 @@ describe( "ElasticRequest", function( ) {
         elastic_query: { fields: ElasticRequest.defaultMapFields( ) } } ) ).
         to.eql({ zoom1: { geohash_grid: { field: "location",
           size: 50000, precision: 10 }, aggs: { geohash: { top_hits: {
-          sort: { id: { order: "desc" } }, _source: false, fielddata_fields:
-          ElasticRequest.defaultMapFields( ), size: 1 } } } } } );
+          sort: { id: { order: "desc" } }, _source: false, size: 1 } } } } } );
     });
 
     it( "returns the source if requested", function( ) {
