@@ -22,8 +22,10 @@ describe( "ElasticMapper", function( ) {
 
   describe( "routes", function( ) {
     it( "only knows one route", function( done ) {
-      request( app ).get( "/" ).expect( 404 )
-        .expect( "Cannot GET /\n", done );
+      request( app ).get( "/" )
+        .expect( function( res ) {
+          expect( res.text ).to.include( "Cannot GET /" );
+        }).expect( 404, done );
     });
 
     it( "allows new routes to be created", function( done ) {
