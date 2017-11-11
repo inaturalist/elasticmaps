@@ -65,12 +65,19 @@ describe( "ElasticRequest", function( ) {
   describe( "geohashPrecision", function( ) {
     it( "returns the proper percision for a zoom", function( ) {
       expect( ElasticRequest.geohashPrecision( 1 ) ).to.eql( 3 );
-      expect( ElasticRequest.geohashPrecision( 2 ) ).to.eql( 4 );
-      expect( ElasticRequest.geohashPrecision( 4 ) ).to.eql( 5 );
-      expect( ElasticRequest.geohashPrecision( 6 ) ).to.eql( 6 );
-      expect( ElasticRequest.geohashPrecision( 9 ) ).to.eql( 7 );
-      expect( ElasticRequest.geohashPrecision( 10 ) ).to.eql( 8 );
+      expect( ElasticRequest.geohashPrecision( 2 ) ).to.eql( 3 );
+      expect( ElasticRequest.geohashPrecision( 3 ) ).to.eql( 4 );
+      expect( ElasticRequest.geohashPrecision( 4 ) ).to.eql( 4 );
+      expect( ElasticRequest.geohashPrecision( 5 ) ).to.eql( 5 );
+      expect( ElasticRequest.geohashPrecision( 6 ) ).to.eql( 5 );
+      expect( ElasticRequest.geohashPrecision( 7 ) ).to.eql( 6 );
+      expect( ElasticRequest.geohashPrecision( 8 ) ).to.eql( 6 );
+      expect( ElasticRequest.geohashPrecision( 9 ) ).to.eql( 6 );
+      expect( ElasticRequest.geohashPrecision( 10 ) ).to.eql( 7 );
+      expect( ElasticRequest.geohashPrecision( 11 ) ).to.eql( 8 );
+      expect( ElasticRequest.geohashPrecision( 12 ) ).to.eql( 8 );
       expect( ElasticRequest.geohashPrecision( 13 ) ).to.eql( 9 );
+      expect( ElasticRequest.geohashPrecision( 14 ) ).to.eql( 9 );
       expect( ElasticRequest.geohashPrecision( 15 ) ).to.eql( 10 );
       expect( ElasticRequest.geohashPrecision( 16 ) ).to.eql( 12 );
     });
@@ -82,7 +89,7 @@ describe( "ElasticRequest", function( ) {
         params: { zoom: 15 },
         elastic_query: { fields: ElasticRequest.defaultMapFields( ) } } ) ).
         to.eql({ zoom1: { geohash_grid: { field: "location",
-          size: 50000, precision: 10 }, aggs: { geohash: { top_hits: {
+          size: 30000, precision: 10 }, aggs: { geohash: { top_hits: {
           sort: { id: { order: "desc" } }, _source: false, size: 1 } } } } } );
     });
 
