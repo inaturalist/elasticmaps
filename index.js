@@ -4,5 +4,6 @@ var _ = require( "underscore" ),
 
 module.exports = _.extend( ElasticMapper, {
   geohashPrecision: ElasticRequest.geohashPrecision,
-  geohashAggregation: ElasticRequest.geohashAggregation
+  geohashAggregation: ElasticRequest.geohashAggregation,
+  torqueAggregation: ElasticRequest.torqueAggregation
 });
