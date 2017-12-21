@@ -25,7 +25,9 @@
     "mapnik": "^3.6.2",
     "sphericalmercator": "^1.0.5",
     "elasticsearch": "^13.3.1",
-    "step": "^1.0.0"
+    "step": "^1.0.0",
+    "latlon-geohash": "^1.1.0",
+    "flat": "*"
   },
   "devDependencies": {
     "mocha": "^3.5.0",
