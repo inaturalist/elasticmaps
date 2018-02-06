@@ -1,5 +1,5 @@
 var expect = require( "chai" ).expect,
-    _ = require( "underscore" ),
+    _ = require( "lodash" ),
     MapGenerator = require( "../lib/map_generator" );
 
 describe( "MapGenerator", function( ) {

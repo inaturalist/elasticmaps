@@ -1,6 +1,6 @@
 {
   "name": "elasticmaps",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Map tileserver based on node-mapnik and elasticsearch",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.15.4",
-    "underscore": "^1.8.3",
+    "lodash": "^4.17.4",
     "mapnik": "^3.6.2",
     "sphericalmercator": "^1.0.5",
     "elasticsearch": "^13.3.1",

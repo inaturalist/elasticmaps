@@ -1,5 +1,5 @@
 var expect = require( "chai" ).expect,
-    _ = require( "underscore" ),
+    _ = require( "lodash" ),
     ElasticRequest = require( "../lib/elastic_request" );
 
 describe( "ElasticRequest", function( ) {

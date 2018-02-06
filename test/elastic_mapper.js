@@ -1,7 +1,7 @@
 var expect = require( "chai" ).expect,
     request = require( "supertest" ),
     express = require( "express" ),
-    _ = require( "underscore" ),
+    _ = require( "lodash" ),
     Mapper = require( "../lib/elastic_mapper" ),
     ElasticRequest = require( "../lib/elastic_request" ),
     helpers = require( "./lib/helpers" ),
@@ -135,7 +135,7 @@ describe( "ElasticMapper", function( ) {
 
   describe( "prepareStyle", function( ) {
     it( "renders errors", function( done ) {
-      app = Mapper.server( _.extend( helpers.testConfig( ), {
+      app = Mapper.server( _.assignIn( helpers.testConfig( ), {
         prepareStyle: function( req, callback ) {
           callback( { message: "fail", status: 501 });
         }
@@ -146,7 +146,7 @@ describe( "ElasticMapper", function( ) {
     });
 
     it( "errors on bad styles", function( done ) {
-      app = Mapper.server( _.extend( helpers.testConfig( ), {
+      app = Mapper.server( _.assignIn( helpers.testConfig( ), {
         prepareStyle: function( req, callback ) {
           req.style = "nonsense";
           callback( req );
@@ -160,7 +160,7 @@ describe( "ElasticMapper", function( ) {
 
   describe( "renderError", function( ) {
     it( "defaults to 500 Error", function( done ) {
-      app = Mapper.server( _.extend( helpers.testConfig( ), {
+      app = Mapper.server( _.assignIn( helpers.testConfig( ), {
         prepareQuery: function( req, callback ) {
           callback( true );
         }
