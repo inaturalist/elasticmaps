@@ -68,9 +68,9 @@ describe( "ElasticRequest", function( ) {
       expect( ElasticRequest.geohashPrecision( 2 ) ).to.eql( 3 );
       expect( ElasticRequest.geohashPrecision( 3 ) ).to.eql( 4 );
       expect( ElasticRequest.geohashPrecision( 4 ) ).to.eql( 4 );
-      expect( ElasticRequest.geohashPrecision( 5 ) ).to.eql( 5 );
+      expect( ElasticRequest.geohashPrecision( 5 ) ).to.eql( 4 );
       expect( ElasticRequest.geohashPrecision( 6 ) ).to.eql( 5 );
-      expect( ElasticRequest.geohashPrecision( 7 ) ).to.eql( 6 );
+      expect( ElasticRequest.geohashPrecision( 7 ) ).to.eql( 5 );
       expect( ElasticRequest.geohashPrecision( 8 ) ).to.eql( 6 );
       expect( ElasticRequest.geohashPrecision( 9 ) ).to.eql( 6 );
       expect( ElasticRequest.geohashPrecision( 10 ) ).to.eql( 7 );
