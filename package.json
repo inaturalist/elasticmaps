@@ -20,14 +20,17 @@
   "author": "Patrick Leary <patrick.r.leary@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "del": "*",
+    "cacheman-file": "*",
     "elasticsearch": "^15.1.1",
     "express": "^4.16.3",
-    "flat": "^4.1.0",
+    "flat": "*",
     "latlon-geohash": "^1.1.0",
     "lodash": "^4.17.10",
     "mapnik": "^4.0.1",
     "sphericalmercator": "^1.0.5",
-    "step": "^1.0.0"
+    "step": "^1.0.0",
+    "crypto": "*"
   },
   "devDependencies": {
     "chai": "^4.1.2",
