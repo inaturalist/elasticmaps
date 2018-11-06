@@ -2,16 +2,18 @@
   "env": {
     "node": true,
     "mocha": true,
-    "es6": true,
-    "browser": true
+    "es6": true
   },
   "parser": "babel-eslint",
   "extends": "airbnb",
   "rules": {
-    "quotes": [2, "double"],
+    "arrow-parens": [2, "as-needed"],
     "comma-dangle": [2, "never"],
-    "space-in-parens": [2, "always"],
+    "consistent-return": [2, { "treatUndefinedAsUnspecified": true }],
     "func-names": 0,
-    "arrow-parens": [2, "as-needed"]
+    "no-void": 0,
+    "prefer-destructuring": [2, { "object": true, "array": false }],
+    "quotes": [2, "double"],
+    "space-in-parens": [2, "always"]
   }
 }
