@@ -20,7 +20,10 @@
   "author": "Patrick Leary <patrick.r.leary@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "del": "^2.2.2",
+    "cacheman-file": "^0.2.1",
     "elasticsearch": "^15.2.0",
+    "es6-promise-pool": "2.5.0",
     "express": "^4.16.4",
     "flat": "^4.1.0",
     "latlon-geohash": "^1.1.0",

@@ -7,7 +7,7 @@ const ElasticRequest = require( "../lib/elastic_request" );
 describe( "ElasticRequest", ( ) => {
   describe( "search", ( ) => {
     it( "returns an error with a malformed query", done => {
-      ElasticRequest.search( { made: "up" }, err => {
+      ElasticRequest.search( { made: "up" }, { }, err => {
         expect( err.message ).to.include( "index_not_found_exception" );
         done( );
       } );
@@ -122,8 +122,8 @@ describe( "ElasticRequest", ( ) => {
       expect( ElasticRequest.geohashPrecision( 7 ) ).to.eql( 5 );
       expect( ElasticRequest.geohashPrecision( 8 ) ).to.eql( 6 );
       expect( ElasticRequest.geohashPrecision( 9 ) ).to.eql( 6 );
-      expect( ElasticRequest.geohashPrecision( 10 ) ).to.eql( 7 );
-      expect( ElasticRequest.geohashPrecision( 11 ) ).to.eql( 8 );
+      expect( ElasticRequest.geohashPrecision( 10 ) ).to.eql( 6 );
+      expect( ElasticRequest.geohashPrecision( 11 ) ).to.eql( 7 );
       expect( ElasticRequest.geohashPrecision( 12 ) ).to.eql( 8 );
       expect( ElasticRequest.geohashPrecision( 13 ) ).to.eql( 9 );
       expect( ElasticRequest.geohashPrecision( 14 ) ).to.eql( 9 );
