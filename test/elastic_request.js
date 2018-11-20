@@ -7,7 +7,7 @@ const ElasticRequest = require( "../lib/elastic_request" );
 describe( "ElasticRequest", ( ) => {
   describe( "search", ( ) => {
     it( "returns an error with a malformed query", done => {
-      ElasticRequest.search( { made: "up" }, err => {
+      ElasticRequest.search( { made: "up" }, { }, err => {
         expect( err.message ).to.include( "index_not_found_exception" );
         done( );
       } );
