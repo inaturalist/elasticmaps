@@ -34,53 +34,32 @@ describe( "MapGenerator", ( ) => {
     } );
   } );
 
-  describe( "memoryDatasource", ( ) => {
-    it( "prepares data for responses with _source", ( ) => {
-      const req = { params: { }, query: { source: true } };
-      const fields = ["id", "latitude", "longitude", "_source"];
+  describe( "geojsonDatasource", ( ) => {
+    it( "prepares data for GeoJSON responses", ( ) => {
       const features = [
         {
-          id: 1,
-          latitude: 11,
-          longitude: 12,
-          _source: "One"
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            coordinates: [12, 11]
+          },
+          properties: {
+            name: "One"
+          }
         },
         {
-          id: 2,
-          latitude: 21,
-          longitude: 22,
-          _source: "Two"
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            coordinates: [22, 21]
+          },
+          properties: {
+            name: "Two"
+          }
         }
       ];
-      const d = MapGenerator.memoryDatasource( req, fields, features );
-      expect( _.keys( d.fields( ) ) ).to.deep.eq(
-        ["id", "latitude", "longitude", "_source"]
-      );
+      const d = MapGenerator.geojsonDatasource( features );
       expect( d.extent( ) ).to.deep.eq( [12, 11, 22, 21] );
-    } );
-
-    it( "prepares data for responses with geojson", ( ) => {
-      const req = { params: { dataType: "geojson" }, query: { } };
-      const fields = ["id", "geojson"];
-      const features = [
-        {
-          id: 1,
-          geojson: {
-            type: "Point",
-            coordinates: [11, 12]
-          }
-        },
-        {
-          id: 2,
-          geojson: {
-            type: "Point",
-            coordinates: [21, 22]
-          }
-        }
-      ];
-      const d = MapGenerator.memoryDatasource( req, fields, features );
-      expect( _.keys( d.fields( ) ) ).to.deep.eq( ["id"] );
-      expect( d.extent( ) ).to.deep.eq( [11, 12, 21, 22] );
     } );
   } );
 } );
