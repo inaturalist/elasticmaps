@@ -27,7 +27,7 @@
     "express": "^4.16.4",
     "flat": "^4.1.0",
     "latlon-geohash": "^1.1.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "mapnik": "^4.0.1",
     "@mapbox/sphericalmercator": "^1.1.0",
     "step": "^1.0.0"
