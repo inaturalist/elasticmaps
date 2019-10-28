@@ -1,6 +1,6 @@
 {
   "name": "elasticmaps",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Map tileserver based on node-mapnik and elasticsearch",
   "main": "index.js",
   "scripts": {
@@ -20,8 +20,9 @@
   "author": "Patrick Leary <patrick.r.leary@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "del": "^2.2.2",
+    "@mapbox/sphericalmercator": "^1.1.0",
     "cacheman-file": "^0.2.1",
+    "del": "^2.2.2",
     "elasticsearch": "^15.2.0",
     "es6-promise-pool": "2.5.0",
     "express": "^4.16.4",
@@ -29,8 +30,7 @@
     "handlebars": "^4.3.0",
     "latlon-geohash": "^1.1.0",
     "lodash": "^4.17.13",
-    "mapnik": "^4.0.1",
-    "@mapbox/sphericalmercator": "^1.1.0",
+    "mapnik": "^4.3.1",
     "step": "^1.0.0"
   },
   "devDependencies": {
