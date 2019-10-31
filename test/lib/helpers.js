@@ -25,28 +25,26 @@ helpers.rebuildTestIndex = callback => {
 
 helpers.createTestIndex = callback => {
   const body = {
-    map_point: {
-      properties: {
-        id: { type: "integer" },
-        user: {
-          properties: {
-            name: { type: "string" }
-          }
-        },
-        location: { type: "geo_point" },
-        geojson: { type: "geo_shape" }
-      }
+    properties: {
+      id: { type: "integer" },
+      user: {
+        properties: {
+          name: { type: "text" }
+        }
+      },
+      location: { type: "geo_point" },
+      geojson: { type: "geo_shape" }
     }
   };
   ElasticRequest.esClient.indices.create(
     { index: global.config.elasticsearch.searchIndex }, ( ) => {
       ElasticRequest.esClient.indices.putMapping(
-        { index: global.config.elasticsearch.searchIndex, type: "map_point", body }, ( ) => {
+        { index: global.config.elasticsearch.searchIndex, body }, ( ) => {
           ElasticRequest.esClient.create( {
             index: global.config.elasticsearch.searchIndex,
             refresh: true,
-            type: "map_point",
-            id: 1,
+            type: "_doc",
+            id: "1",
             body: {
               id: 1,
               location: "51.18,-1.83",
