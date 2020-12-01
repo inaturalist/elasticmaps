@@ -1,4 +1,4 @@
-#Elasticmaps
+# Elasticmaps
 
 [![Build Status](https://github.com/inaturalist/elasticmaps/workflows/elasticmaps%20CI/badge.svg)](https://github.com/inaturalist/elasticmaps/actions)
 [![Coverage Status](https://coveralls.io/repos/inaturalist/elasticmaps/badge.svg?branch=main)](https://coveralls.io/r/inaturalist/elasticmaps?branch=main)
