@@ -1,7 +1,7 @@
-Elasticmaps
-=========
+#Elasticmaps
 
-[![npm version](https://badge.fury.io/js/elasticmaps.svg)](http://badge.fury.io/js/elasticmaps) [![Build Status](https://travis-ci.org/inaturalist/elasticmaps.svg?branch=master)](https://travis-ci.org/inaturalist/elasticmaps) [![Coverage Status](https://coveralls.io/repos/inaturalist/elasticmaps/badge.svg?branch=master)](https://coveralls.io/r/inaturalist/elasticmaps?branch=master)
+[![Build Status](https://github.com/inaturalist/elasticmaps/workflows/elasticmaps%20CI/badge.svg)](https://github.com/inaturalist/elasticmaps/actions)
+[![Coverage Status](https://coveralls.io/repos/inaturalist/elasticmaps/badge.svg?branch=main)](https://coveralls.io/r/inaturalist/elasticmaps?branch=main)
 
 A Node.js map tile server based on node-mapnik and elasticsearch
 
