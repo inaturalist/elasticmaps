@@ -44,13 +44,14 @@ jobs:
     - run: npm test
 
     - run: npm run coveralls
+      if: env.COVERALLS_REPO_TOKEN != null
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
 
   notify:
     name: Notify Slack
     needs: build
-    if: always()
+    if: ${{ success() || failure() }}
     runs-on: ubuntu-18.04
     steps:
       - uses: iRoachie/slack-github-actions@v2.0.1
