@@ -38,6 +38,7 @@
     "@babel/core": "*",
     "@babel/eslint-parser": "*",
     "chai": "*",
+    "coveralls": "*",
     "eslint": "*",
     "eslint-config-airbnb": "*",
     "eslint-plugin-import": "*",
