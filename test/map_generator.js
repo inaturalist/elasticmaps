@@ -28,7 +28,7 @@ describe( "MapGenerator", ( ) => {
     it( "returns errors", ( ) => {
       MapGenerator.createMapTemplate( { style: "nothing" }, err => {
         expect( err.message ).to.eq(
-          "Cannot read property 'format' of undefined"
+          "Cannot read properties of undefined (reading 'format')"
         );
       } );
     } );
