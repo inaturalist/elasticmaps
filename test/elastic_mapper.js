@@ -27,7 +27,7 @@ describe( "ElasticMapper", ( ) => {
     } );
 
     it( "allows new routes to be created", done => {
-      app.get( "/", ( req, res ) => {
+      app.get( "/fails", ( req, res ) => {
         res.send( "success" ).status( 200 ).end( );
       } );
       request( app ).get( "/" ).expect( 200 )
