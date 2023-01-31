@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   pre_build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: fkirc/skip-duplicate-actions@master
         with:
@@ -12,13 +12,13 @@ jobs:
 
   build:
     needs: pre_build
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Use Node.js
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
         node-version: 16.x
 
@@ -32,7 +32,7 @@ jobs:
     - name: Runs Elasticsearch
       uses: miyataka/elastic-github-actions/elasticsearch@feature/plugin_support
       with:
-        stack-version: 7.6.0
+        stack-version: 7.17.1
         plugins: analysis-kuromoji
 
     - name: Elasticsearch is reachable
@@ -41,20 +41,15 @@ jobs:
 
     - run: npm install
 
-    - run: npm test
-
-    - run: npm run coveralls
-      if: env.COVERALLS_REPO_TOKEN != null
-      env:
-        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+    - run: npm run coverage
 
   notify:
     name: Notify Slack
     needs: build
     if: ${{ success() || failure() }}
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
-      - uses: iRoachie/slack-github-actions@v2.0.1
+      - uses: iRoachie/slack-github-actions@v2.3.2
         if: env.SLACK_WEBHOOK_URL != null
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_BUILDS_WEBHOOK_URL }}

@@ -1,16 +1,18 @@
 /* eslint no-underscore-dangle: 0 */
 
-const { expect } = require( "chai" );
+const chai = require( "chai" );
+const chaiAsPromised = require( "chai-as-promised" );
 const _ = require( "lodash" );
 const ElasticRequest = require( "../lib/elastic_request" );
 
+const { expect } = chai;
+chai.use( chaiAsPromised );
+
 describe( "ElasticRequest", ( ) => {
   describe( "search", ( ) => {
-    it( "returns an error with a malformed query", done => {
-      ElasticRequest.search( { made: "up" }, { }, err => {
-        expect( err.message ).to.include( "index_not_found_exception" );
-        done( );
-      } );
+    it( "returns an error with a malformed query", async ( ) => {
+      await expect( ElasticRequest.search( { made: "up" } ) ).to.be
+        .rejectedWith( Error, "index_not_found_exception" );
     } );
   } );
 

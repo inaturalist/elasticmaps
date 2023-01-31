@@ -6,24 +6,18 @@ helpers.testConfig = ( ) => (
   { environment: "test", debug: false }
 );
 
-helpers.rebuildTestIndex = callback => {
+helpers.rebuildTestIndex = async ( ) => {
   ElasticRequest.createClient( );
-  ElasticRequest.esClient.indices.exists(
-    { index: global.config.elasticsearch.searchIndex }, ( err, bool ) => {
-      if ( bool === true ) {
-        ElasticRequest.esClient.indices.delete(
-          { index: global.config.elasticsearch.searchIndex }, ( ) => {
-            helpers.createTestIndex( callback );
-          }
-        );
-      } else {
-        helpers.createTestIndex( callback );
-      }
-    }
-  );
+  const indexOptions = { index: global.config.elasticsearch.searchIndex };
+  if ( await ElasticRequest.esClient.indices.exists( indexOptions ) ) {
+    await ElasticRequest.esClient.indices.delete( indexOptions );
+    await helpers.createTestIndex( );
+  } else {
+    await helpers.createTestIndex( );
+  }
 };
 
-helpers.createTestIndex = callback => {
+helpers.createTestIndex = async ( ) => {
   const body = {
     properties: {
       id: { type: "integer" },
@@ -33,43 +27,42 @@ helpers.createTestIndex = callback => {
         }
       },
       location: { type: "geo_point" },
-      geojson: { type: "geo_shape" }
-    }
-  };
-  ElasticRequest.esClient.indices.create(
-    { index: global.config.elasticsearch.searchIndex }, ( ) => {
-      ElasticRequest.esClient.indices.putMapping(
-        { index: global.config.elasticsearch.searchIndex, body }, ( ) => {
-          ElasticRequest.esClient.create( {
-            index: global.config.elasticsearch.searchIndex,
-            refresh: true,
-            type: "_doc",
-            id: "1",
-            body: {
-              id: 1,
-              location: "51.18,-1.83",
-              geojson: { type: "Point", coordinates: [-1.83, 51.18] }
-            }
-          }, callback );
+      geojson: { type: "geo_shape" },
+      observed_on_details: {
+        properties: {
+          month: { type: "byte" }
         }
-      );
-    }
-  );
-};
-
-helpers.deleteTestIndex = callback => {
-  ElasticRequest.createClient( );
-  ElasticRequest.esClient.indices.exists(
-    { index: global.config.elasticsearch.searchIndex }, ( err, bool ) => {
-      if ( bool === true ) {
-        ElasticRequest.esClient.indices.delete(
-          { index: global.config.elasticsearch.searchIndex }, callback
-        );
-      } else {
-        callback( );
       }
     }
-  );
+  };
+  const indexOptions = { index: global.config.elasticsearch.searchIndex };
+  await ElasticRequest.esClient.indices.create( indexOptions );
+  await ElasticRequest.esClient.indices.putMapping( {
+    ...indexOptions,
+    body
+  } );
+  await ElasticRequest.esClient.create( {
+    ...indexOptions,
+    refresh: true,
+    type: "_doc",
+    id: "1",
+    body: {
+      id: 1,
+      location: "51.18,-1.83",
+      geojson: { type: "Point", coordinates: [-1.83, 51.18] },
+      observed_on_details: {
+        month: 1
+      }
+    }
+  } );
+};
+
+helpers.deleteTestIndex = async ( ) => {
+  ElasticRequest.createClient( );
+  const indexOptions = { index: global.config.elasticsearch.searchIndex };
+  if ( await ElasticRequest.esClient.indices.exists( indexOptions ) ) {
+    await ElasticRequest.esClient.indices.delete( indexOptions );
+  }
 };
 
 module.exports = helpers;
