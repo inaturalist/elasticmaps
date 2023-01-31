@@ -7,15 +7,15 @@ const helpers = require( "./lib/helpers" );
 let app;
 
 describe( "ElasticMapper", ( ) => {
-  before( function ( done ) {
+  before( async function ( ) {
     this.timeout( 10000 );
     app = Mapper.server( helpers.testConfig( ) );
     app.get( "/:style/:zoom/:x/:y.:format([a-z.]+)", Mapper.route );
-    helpers.rebuildTestIndex( done );
+    await helpers.rebuildTestIndex( );
   } );
 
-  after( done => {
-    helpers.deleteTestIndex( done );
+  after( async ( ) => {
+    await helpers.deleteTestIndex( );
   } );
 
   describe( "routes", ( ) => {
@@ -121,8 +121,19 @@ describe( "ElasticMapper", ( ) => {
     } );
 
     it( "renders .grid.json", done => {
-      request( app ).get( "/geohash/1/1/1.grid.json" ).expect( 200 )
+      request( app ).get( "/geohash/1/1/0.grid.json" ).expect( 200 )
         .expect( "content-type", "application/json; charset=utf-8", done );
+    } );
+
+    it( "renders .torque.json", done => {
+      request( app ).get( "/geohash/1/0/0.torque.json" )
+        .expect( res => {
+          expect( res.text ).to.include( "x__uint8" );
+          expect( res.text ).to.include( "y__uint8" );
+          expect( res.text ).to.include( "vals__uint8" );
+        } )
+        .expect( 200 )
+        .expect( "content-type", "text/html; charset=utf-8", done );
     } );
 
     it( "errors on all other formats format", done => {
@@ -131,11 +142,31 @@ describe( "ElasticMapper", ( ) => {
     } );
   } );
 
+  describe( "geotile", ( ) => {
+    it( "renders .png", done => {
+      request( app ).get( "/geotile/1/0/0.png" ).expect( 200 )
+        .expect( "content-type", "image/png", done );
+    } );
+
+    it( "renders .grid.json", done => {
+      request( app ).get( "/geotile/1/1/0.grid.json" ).expect( 200 )
+        .expect( "content-type", "application/json; charset=utf-8", done );
+    } );
+
+    it( "errors on all other formats format", done => {
+      request( app ).get( "/geotile/1/0/0.html" ).expect( 404 )
+        .expect( "Invalid format", done );
+    } );
+  } );
+
   describe( "prepareStyle", ( ) => {
     it( "renders errors", done => {
       app = Mapper.server( _.assignIn( helpers.testConfig( ), {
-        prepareStyle: ( req, callback ) => {
-          callback( { message: "fail", status: 501 } );
+        prepareStyle: ( ) => {
+          const e = new Error( );
+          e.status = 501;
+          e.message = "fail";
+          throw e;
         }
       } ) );
       app.get( "/:style/:zoom/:x/:y.:format([a-z.]+)", Mapper.route );
@@ -145,9 +176,8 @@ describe( "ElasticMapper", ( ) => {
 
     it( "errors on bad styles", done => {
       app = Mapper.server( _.assignIn( helpers.testConfig( ), {
-        prepareStyle: ( req, callback ) => {
+        prepareStyle: req => {
           req.style = "nonsense";
-          callback( req );
         }
       } ) );
       app.get( "/:style/:zoom/:x/:y.:format([a-z.]+)", Mapper.route );
@@ -159,8 +189,8 @@ describe( "ElasticMapper", ( ) => {
   describe( "renderError", ( ) => {
     it( "defaults to 500 Error", done => {
       app = Mapper.server( _.assignIn( helpers.testConfig( ), {
-        prepareQuery: ( req, callback ) => {
-          callback( true );
+        prepareQuery: ( ) => {
+          throw new Error( );
         }
       } ) );
       app.get( "/:style/:zoom/:x/:y.:format([a-z.]+)", Mapper.route );

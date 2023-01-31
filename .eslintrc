@@ -14,9 +14,13 @@
     "comma-dangle": [2, "never"],
     "consistent-return": [2, { "treatUndefinedAsUnspecified": true }],
     "func-names": 0,
+    "no-underscore-dangle": 0,
     "no-void": 0,
     "prefer-destructuring": [2, { "object": true, "array": false }],
     "quotes": [2, "double"],
-    "space-in-parens": [2, "always"]
+    "space-in-parens": [2, "always"],
+    "no-param-reassign": 0,
+    "prefer-const": [2, { "destructuring": "all" }],
+    "function-paren-newline": [2, "consistent"]
   }
 }

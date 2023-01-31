@@ -1,16 +1,12 @@
 const { expect } = require( "chai" );
-const _ = require( "lodash" );
 const MapGenerator = require( "../lib/map_generator" );
 
 describe( "MapGenerator", ( ) => {
   describe( "createMapTemplate", ( ) => {
-    it( "fails on invalid styles", done => {
-      MapGenerator.createMapTemplate(
-        { params: { x: 0, y: 0, zoom: 1 }, style: "nonsense" }, err => {
-          expect( err.message ).to.include( "Unable to process some data while parsing" );
-          done( );
-        }
-      );
+    it( "fails on invalid styles", async ( ) => {
+      await expect( MapGenerator.createMapTemplate(
+        { params: { x: 0, y: 0, zoom: 1 }, style: "nonsense" }
+      ) ).to.be.rejectedWith( "Unable to process some data while parsing" );
     } );
   } );
 

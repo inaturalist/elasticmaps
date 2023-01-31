@@ -19,16 +19,16 @@ Usage
 // named elasticmaps_development which has documents with minimally
 // an integer `id` and geo_point `location` field
 
-var Elasticmaps = require( "elasticmaps" ),
-    port = Number( process.env.PORT || 4000 );
+const Elasticmaps = require( "elasticmaps" );
+const port = Number( process.env.PORT || 4000 );
 
-var app = Elasticmaps.server( );
+const app = Elasticmaps.server( );
 // create the tile route
 app.get( "/:style/:zoom/:x/:y.:format([a-z\.]+)", Elasticmaps.route );
 
-app.listen( port, function( ) {
+app.listen( port, ( ) => {
   console.log( "Listening on " + port );
-});
+} );
 ```
 
 ----
@@ -38,10 +38,10 @@ app.listen( port, function( ) {
 // when creating the server. Functions can be provided
 // to create custom queries and styles based on the request
 
-var Elasticmaps = require( "elasticmaps" ),
-    port = Number( process.env.PORT || 4000 );
+const Elasticmaps = require( "elasticmaps" );
+const port = Number( process.env.PORT || 4000 );
 
-var config =  {
+const config =  {
   environment: "production",
   debug: true,
   tileSize: 256,
@@ -50,18 +50,16 @@ var config =  {
     searchIndex: "points_index",
     geoPointField: "location"
   },
-  prepareQuery: function( req, callback ) {
+  prepareQuery: req => {
     req.elastic_query = ...;
-    callback( null, req );
   },
-  prepareStyle: function( req, callback ) {
+  prepareStyle: req => {
     req.style = ...;
-    callback( null, req );
   }
 };
 
-var server = Elasticmaps.server( config );
-server.listen( port, function( ) {
+const server = Elasticmaps.server( config );
+server.listen( port, ( ) => {
   console.log( "Listening on " + port );
-});
+} );
 ```

@@ -1,6 +1,6 @@
 {
   "name": "elasticmaps",
-  "version": "4.1.0",
+  "version": "5.1.0",
   "description": "Map tileserver based on node-mapnik and elasticsearch",
   "main": "index.js",
   "scripts": {
@@ -21,8 +21,7 @@
   "license": "MIT",
   "dependencies": {
     "@mapbox/sphericalmercator": "^1.2.0",
-    "cacheman": "^2.2.1",
-    "cacheman-file": "^0.2.1",
+    "recacheman": "^2.2.4",
     "del": "^6.0.0",
     "elasticsearch": "^16.7.2",
     "es6-promise-pool": "^2.5.0",
@@ -38,13 +37,14 @@
     "@babel/core": "^7.16.7",
     "@babel/eslint-parser": "^7.16.5",
     "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
     "eslint": "^8.6.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.28.0",
-    "mocha": "^9.1.3",
-    "supertest": "^6.2.0",
-    "nyc": "*"
+    "mocha": "^10.0.0",
+    "nyc": "*",
+    "supertest": "^6.2.0"
   }
 }
