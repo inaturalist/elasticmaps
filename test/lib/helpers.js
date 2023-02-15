@@ -1,4 +1,5 @@
 const ElasticRequest = require( "../../lib/elastic_request" );
+const EC = require( "../../lib/elastic_config" );
 
 const helpers = { };
 
@@ -8,7 +9,7 @@ helpers.testConfig = ( ) => (
 
 helpers.rebuildTestIndex = async ( ) => {
   ElasticRequest.createClient( );
-  const indexOptions = { index: global.config.elasticsearch.searchIndex };
+  const indexOptions = { index: EC.config.elasticsearch.searchIndex };
   if ( await ElasticRequest.esClient.indices.exists( indexOptions ) ) {
     await ElasticRequest.esClient.indices.delete( indexOptions );
     await helpers.createTestIndex( );
@@ -35,7 +36,7 @@ helpers.createTestIndex = async ( ) => {
       }
     }
   };
-  const indexOptions = { index: global.config.elasticsearch.searchIndex };
+  const indexOptions = { index: EC.config.elasticsearch.searchIndex };
   await ElasticRequest.esClient.indices.create( indexOptions );
   await ElasticRequest.esClient.indices.putMapping( {
     ...indexOptions,
@@ -59,7 +60,7 @@ helpers.createTestIndex = async ( ) => {
 
 helpers.deleteTestIndex = async ( ) => {
   ElasticRequest.createClient( );
-  const indexOptions = { index: global.config.elasticsearch.searchIndex };
+  const indexOptions = { index: EC.config.elasticsearch.searchIndex };
   if ( await ElasticRequest.esClient.indices.exists( indexOptions ) ) {
     await ElasticRequest.esClient.indices.delete( indexOptions );
   }

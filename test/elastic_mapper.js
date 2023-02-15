@@ -1,6 +1,7 @@
 const { expect } = require( "chai" );
 const request = require( "supertest" );
 const _ = require( "lodash" );
+const EC = require( "../lib/elastic_config" );
 const Mapper = require( "../lib/elastic_mapper" );
 const helpers = require( "./lib/helpers" );
 
@@ -202,9 +203,8 @@ describe( "ElasticMapper", ( ) => {
   describe( "defaults", ( ) => {
     it( "creates a default config", ( ) => {
       app = Mapper.server( );
-      expect( global.config.environment ).to.eql( "development" );
-      expect( global.config.tileSize ).to.eql( 256 );
-      expect( global.config.debug ).to.eql( true );
+      expect( EC.config.tileSize ).to.eql( 256 );
+      expect( EC.config.debug ).to.eql( true );
     } );
   } );
 } );
