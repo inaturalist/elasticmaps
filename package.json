@@ -1,10 +1,10 @@
 {
   "name": "elasticmaps",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "description": "Map tileserver based on node-mapnik and elasticsearch",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --recursive",
     "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test"
   },
   "repository": {

@@ -18,7 +18,7 @@ describe( "ElasticRequest", ( ) => {
 
   describe( "boundingBoxFilter", ( ) => {
     it( "enlarges the boundary for better tile edges", ( ) => {
-      expect( ElasticRequest.boundingBoxFilter( [0, 0, 1, 1], true ) ).to.eql( {
+      expect( ElasticRequest.boundingBoxFilter( { }, [0, 0, 1, 1], true ) ).to.eql( {
         geo_bounding_box: {
           location: {
             bottom_left: [-0.07, -0.07],
@@ -30,7 +30,7 @@ describe( "ElasticRequest", ( ) => {
     } );
 
     it( "can skip smoothing", ( ) => {
-      expect( ElasticRequest.boundingBoxFilter( [0, 0, 1, 1], false ) ).to.eql( {
+      expect( ElasticRequest.boundingBoxFilter( { }, [0, 0, 1, 1], false ) ).to.eql( {
         geo_bounding_box: {
           location: {
             bottom_left: [0, 0],
@@ -42,7 +42,7 @@ describe( "ElasticRequest", ( ) => {
     } );
 
     it( "creates a conditional query for dateline wrapping bboxes", ( ) => {
-      expect( ElasticRequest.boundingBoxFilter( [179, 1, -179, 2], false ) ).to.eql( {
+      expect( ElasticRequest.boundingBoxFilter( { }, [179, 1, -179, 2], false ) ).to.eql( {
         bool: {
           should: [
             {
