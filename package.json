@@ -1,6 +1,6 @@
 {
   "name": "elasticmaps",
-  "version": "5.2.0",
+  "version": "5.3.0",
   "description": "Map tileserver based on node-mapnik and elasticsearch",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "@mapbox/sphericalmercator": "^1.2.0",
     "recacheman": "^2.2.4",
     "del": "^6.0.0",
-    "elasticsearch": "^16.7.2",
+    "@elastic/elasticsearch": "^8.7.0",
     "es6-promise-pool": "^2.5.0",
     "express": "^4.17.2",
     "flat": "^5.0.2",

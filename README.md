@@ -15,7 +15,7 @@ Usage
 -----
 ```js
 // This is the most basic example. It assumes elasticsearch
-// is running on localhost:9200, and that there is an index
+// is running on http://localhost:9200, and that there is an index
 // named elasticmaps_development which has documents with minimally
 // an integer `id` and geo_point `location` field
 
@@ -46,7 +46,7 @@ const config =  {
   debug: true,
   tileSize: 256,
   elasticsearch: {
-    host: "localhost:9200",
+    host: "http://localhost:9200",
     searchIndex: "points_index",
     geoPointField: "location"
   },

@@ -1,6 +1,6 @@
 module.exports = {
   elasticsearch: {
-    host: "localhost:9200",
+    host: "http://localhost:9200",
     searchIndex: "points_index",
     geoPointField: "location"
   },
